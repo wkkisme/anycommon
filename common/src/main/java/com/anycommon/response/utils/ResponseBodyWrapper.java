@@ -1,10 +1,13 @@
 package com.anycommon.response.utils;
 
+import com.anycommon.response.common.BaseQO;
 import com.anycommon.response.common.ResponseBody;
 import com.anycommon.response.constant.ErrMsgEnum;
+import com.anycommon.response.expception.AppSystemException;
 import com.anycommon.response.page.Pagination;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 封装简单成功或失败 返回体
@@ -33,6 +36,21 @@ public class ResponseBodyWrapper implements Serializable {
         return result;
     }
 
+    public static AppSystemException failException(String msg) {
+
+        return new AppSystemException(msg);
+    }
+
+    public static void failParamException() {
+
+        throw new  AppSystemException(ErrMsgEnum.EMPTY_PARAME.getErrorMessage());
+    }
+
+    public static void failSysException() {
+
+        throw  new AppSystemException(ErrMsgEnum.ERROR_SYSTEM.getErrorMessage());
+    }
+
     public static <T> ResponseBody<T> failSystemError() {
 
         return fail(ErrMsgEnum.ERROR_SYSTEM);
@@ -43,11 +61,16 @@ public class ResponseBodyWrapper implements Serializable {
         return fail(ErrMsgEnum.ERROR_PARAME);
     }
 
-    public static <T> ResponseBody<T> successWrapper(T t,Long total, Integer pageSize,Integer pageIndex) {
 
-        ResponseBody<T> tResponseBody = new ResponseBody<>();
-        tResponseBody.setData(t);
-        tResponseBody.setPage(new Pagination(pageIndex,pageSize,total));
+    public static <T,R> ResponseBody<List<R>> successListWrapper(List<T> t, Long total, BaseQO qo, Class<R> swap) {
+
+        ResponseBody<List<R>> tResponseBody = new ResponseBody<>();
+        try {
+            tResponseBody.setData(BeanUtil.queryListConversion(t,swap));
+        } catch (Exception e) {
+            throw  new AppSystemException(e);
+        }
+        tResponseBody.setPage(new Pagination(qo.getPageIndex(),qo.getPageSize(),total));
         return tResponseBody;
     }
 }
