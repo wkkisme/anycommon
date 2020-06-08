@@ -10,11 +10,10 @@ public class Pagination {
     public Pagination() {
     }
 
-    public Pagination(int pageIndex, int pageSize, long totalCount, int totalPage) {
+    public Pagination(int pageIndex, int pageSize, long totalCount) {
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;
         this.totalCount = totalCount;
-        this.totalPage = totalPage;
     }
 
     public long getTotalCount() {

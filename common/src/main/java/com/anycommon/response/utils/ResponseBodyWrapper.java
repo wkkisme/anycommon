@@ -2,6 +2,7 @@ package com.anycommon.response.utils;
 
 import com.anycommon.response.common.ResponseBody;
 import com.anycommon.response.constant.ErrMsgEnum;
+import com.anycommon.response.page.Pagination;
 
 import java.io.Serializable;
 
@@ -40,5 +41,13 @@ public class ResponseBodyWrapper implements Serializable {
     public static <T> ResponseBody<T> failParamError() {
 
         return fail(ErrMsgEnum.ERROR_PARAME);
+    }
+
+    public static <T> ResponseBody<T> successWrapper(T t,Long total, Integer pageSize,Integer pageIndex) {
+
+        ResponseBody<T> tResponseBody = new ResponseBody<>();
+        tResponseBody.setData(t);
+        tResponseBody.setPage(new Pagination(pageIndex,pageSize,total));
+        return tResponseBody;
     }
 }
