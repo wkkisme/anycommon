@@ -1,9 +1,11 @@
 package com.anycommon.response.common;
 
+import java.io.Serializable;
+
 /**
  * @author wangkai
  */
-public class BaseQO {
+public class BaseQO implements Serializable {
     private String key;
 
     private Integer pageIndex = 1;
