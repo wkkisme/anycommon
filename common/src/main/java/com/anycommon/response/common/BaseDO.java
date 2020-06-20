@@ -1,11 +1,12 @@
 package com.anycommon.response.common;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author wangkai
  */
-public class BaseDO {
+public class BaseDO implements Serializable {
 
     private Long id;
 

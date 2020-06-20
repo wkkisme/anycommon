@@ -1,6 +1,8 @@
 package com.anycommon.response.page;
 
-public class Pagination {
+import java.io.Serializable;
+
+public class Pagination implements Serializable {
 
     private int pageIndex = 1;
     private int pageSize = 10;
