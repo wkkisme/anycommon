@@ -55,6 +55,12 @@
             <version>3.8.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>5.2.7.RELEASE</version>
+        </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>

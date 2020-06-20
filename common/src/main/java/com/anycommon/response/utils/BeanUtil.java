@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.JSON;
 import com.anycommon.response.common.BaseDO;
 import com.anycommon.response.common.ResponseBody;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,7 @@ public class BeanUtil {
         if (source == null) {
             return null;
         }
-        BeanUtil.copyProperties(source, target);
+        BeanUtils.copyProperties(source, target);
         return target;
     }
 
@@ -71,7 +72,7 @@ public class BeanUtil {
      */
     public static void copyProperties(Object source, Object target)  {
 
-        BeanUtil.copyProperties(source, target);
+        BeanUtils.copyProperties(source, target);
     }
 
     /**
@@ -86,7 +87,7 @@ public class BeanUtil {
         List<T> result = new ArrayList<>();
         for (Object s : source) {
             T t = target.newInstance();
-            BeanUtil.copyProperties(s, t);
+            BeanUtils.copyProperties(s, t);
             result.add(t);
         }
         return result;
@@ -106,7 +107,7 @@ public class BeanUtil {
         if (!CollectionUtil.isEmpty(data)) {
             for (Object s : data) {
                 T t = target.newInstance();
-                BeanUtil.copyProperties(s, t);
+                BeanUtils.copyProperties(s, t);
                 resultList.add(t);
             }
         }
@@ -177,7 +178,7 @@ public class BeanUtil {
         List<T> result = new ArrayList<>();
         for (Object s : source) {
             T t = target.newInstance();
-            BeanUtil.copyProperties(s, t);
+            BeanUtils.copyProperties(s, t);
             t.beforeUpdate();
             result.add(t);
         }
@@ -198,7 +199,7 @@ public class BeanUtil {
             return null;
         }
 
-        BeanUtil.copyProperties(source, target);
+        BeanUtils.copyProperties(source, target);
         return target;
     }
 

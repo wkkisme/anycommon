@@ -36,6 +36,15 @@ public class ResponseBodyWrapper implements Serializable {
         return result;
     }
 
+
+    public static <T> ResponseBody<T> fail(String msg,String code) {
+        ResponseBody<T> result = new ResponseBody<>();
+        result.setErrCode( msg);
+        result.setErrMsg(code);
+        result.setSuccess(false);
+        return result;
+    }
+
     public static AppSystemException failException(String msg) {
 
         return new AppSystemException(msg);
