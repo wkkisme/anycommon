@@ -82,4 +82,15 @@ public class ResponseBodyWrapper implements Serializable {
         tResponseBody.setPage(new Pagination(qo.getPageIndex(),qo.getPageSize(),total));
         return tResponseBody;
     }
+    public static <T,R> ResponseBody<R> successWrapper(T t, Class<R> swap) {
+
+        ResponseBody<R> tResponseBody = new ResponseBody<>();
+        try {
+            R r = swap.newInstance();
+            tResponseBody.setData(BeanUtil.queryConversion(t,r));
+        } catch (Exception e) {
+            throw  new AppSystemException(e);
+        }
+        return tResponseBody;
+    }
 }
