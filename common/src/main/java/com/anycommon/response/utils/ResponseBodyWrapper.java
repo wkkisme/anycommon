@@ -22,7 +22,7 @@ public class ResponseBodyWrapper implements Serializable {
 
     public static <T> ResponseBody<T> success(ErrMsgEnum msg) {
         ResponseBody<T> result = new ResponseBody<>();
-        result.setErrCode( msg.getErrorCode());
+        result.setErrCode(msg.getErrorCode());
         result.setErrMsg(msg.getErrorMessage());
         return result;
     }
@@ -30,16 +30,16 @@ public class ResponseBodyWrapper implements Serializable {
 
     public static <T> ResponseBody<T> fail(ErrMsgEnum msg) {
         ResponseBody<T> result = new ResponseBody<>();
-        result.setErrCode( msg.getErrorCode());
+        result.setErrCode(msg.getErrorCode());
         result.setErrMsg(msg.getErrorMessage());
         result.setSuccess(false);
         return result;
     }
 
 
-    public static <T> ResponseBody<T> fail(String msg,String code) {
+    public static <T> ResponseBody<T> fail(String msg, String code) {
         ResponseBody<T> result = new ResponseBody<>();
-        result.setErrCode( msg);
+        result.setErrCode(msg);
         result.setErrMsg(code);
         result.setSuccess(false);
         return result;
@@ -47,17 +47,17 @@ public class ResponseBodyWrapper implements Serializable {
 
     public static AppSystemException failException(String msg) {
 
-        return new AppSystemException(msg);
+        throw new AppSystemException(msg);
     }
 
     public static void failParamException() {
 
-        throw new  AppSystemException(ErrMsgEnum.EMPTY_PARAME.getErrorMessage());
+        throw new AppSystemException(ErrMsgEnum.EMPTY_PARAME.getErrorMessage());
     }
 
     public static void failSysException() {
 
-        throw  new AppSystemException(ErrMsgEnum.ERROR_SYSTEM.getErrorMessage());
+        throw new AppSystemException(ErrMsgEnum.ERROR_SYSTEM.getErrorMessage());
     }
 
     public static <T> ResponseBody<T> failSystemError() {
@@ -71,25 +71,38 @@ public class ResponseBodyWrapper implements Serializable {
     }
 
 
-    public static <T,R> ResponseBody<List<R>> successListWrapper(List<T> t, Long total, BaseQO qo, Class<R> swap) {
+    public static <T, R> ResponseBody<List<R>> successListWrapper(List<T> t, Long total, BaseQO qo, Class<R> swap) {
 
         ResponseBody<List<R>> tResponseBody = new ResponseBody<>();
         try {
-            tResponseBody.setData(BeanUtil.queryListConversion(t,swap));
+            tResponseBody.setData(BeanUtil.queryListConversion(t, swap));
         } catch (Exception e) {
-            throw  new AppSystemException(e);
+            throw new AppSystemException(e);
         }
-        tResponseBody.setPage(new Pagination(qo.getPageIndex(),qo.getPageSize(),total));
+        tResponseBody.setPage(new Pagination(qo.getPageIndex(), qo.getPageSize(), total));
         return tResponseBody;
     }
-    public static <T,R> ResponseBody<R> successWrapper(T t, Class<R> swap) {
+
+    public static <T, R> ResponseBody<R> successWrapper(T t, Class<R> swap) {
 
         ResponseBody<R> tResponseBody = new ResponseBody<>();
         try {
             R r = swap.newInstance();
-            tResponseBody.setData(BeanUtil.queryConversion(t,r));
+            tResponseBody.setData(BeanUtil.queryConversion(t, r));
         } catch (Exception e) {
-            throw  new AppSystemException(e);
+            throw new AppSystemException(e);
+        }
+        return tResponseBody;
+    }
+
+    public static <T> ResponseBody<T> successWrapper(T t) {
+
+        ResponseBody<T> tResponseBody = new ResponseBody<>();
+        try {
+
+            tResponseBody.setData(t);
+        } catch (Exception e) {
+            throw new AppSystemException(e);
         }
         return tResponseBody;
     }
