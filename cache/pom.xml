@@ -9,7 +9,7 @@
     <artifactId>anycommon-cache</artifactId>
     <version>1.0.0</version>
 
-    <name>response-common</name>
+    <name>anycommon-cache</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

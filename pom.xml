@@ -10,6 +10,12 @@
     <version>1.0.0</version>
 
     <name>breeding-common</name>
+    <modules>
+        <module>cache</module>
+        <module>oss</module>
+        <module>common</module>
+        <module>uid-generator</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
