@@ -9,7 +9,7 @@
     <artifactId>anycommon-parent</artifactId>
     <version>1.0.0</version>
 
-    <name>breeding-common</name>
+    <name>anycommon-parent</name>
     <modules>
         <module>cache</module>
         <module>oss</module>
@@ -17,6 +17,7 @@
         <module>uid-generator</module>
     </modules>
 
+    <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>

@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.anycommon</groupId>
-    <artifactId>response-common-base</artifactId>
+    <artifactId>anycommon-uid</artifactId>
     <version>1.0.0</version>
 
     <name>anycommon-uid</name>
