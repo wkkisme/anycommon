@@ -8,6 +8,8 @@ import com.anycommon.cache.dto.OssDTO;
 import com.anycommon.cache.service.OssService;
 import com.google.common.collect.Maps;
 import org.apache.commons.fileupload.FileItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,7 @@ import static org.apache.commons.io.FilenameUtils.*;
  */
 @Service
 public class OssServiceImpl implements OssService {
+    private final static Logger logger = LoggerFactory.getLogger(OssServiceImpl.class);
     @Resource
     private OssConfig ossConfig;
 
