@@ -1,16 +1,14 @@
-package com.anycommon.cache.service.impl;
+package com.anycommon.oss.service.impl;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.CannedAccessControlList;
 import com.aliyun.oss.model.DeleteObjectsRequest;
-import com.anycommon.cache.config.OssConfig;
-import com.anycommon.cache.dto.OssDTO;
-import com.anycommon.cache.service.OssService;
-import com.google.common.collect.Maps;
+import com.anycommon.oss.config.OssConfig;
+import com.anycommon.oss.dto.OssDTO;
+import com.anycommon.oss.service.OssService;
 import org.apache.commons.fileupload.FileItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

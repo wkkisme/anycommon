@@ -1,4 +1,4 @@
-package com.anycommon.cache.dto;
+package com.anycommon.oss.dto;
 
 import java.io.Serializable;
 

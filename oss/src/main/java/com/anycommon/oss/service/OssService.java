@@ -1,13 +1,11 @@
-package com.anycommon.cache.service;
+package com.anycommon.oss.service;
 
-import com.aliyun.oss.model.CannedAccessControlList;
-import com.anycommon.cache.dto.OssDTO;
+import com.anycommon.oss.dto.OssDTO;
 import org.apache.commons.fileupload.FileItem;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 
 
 /**

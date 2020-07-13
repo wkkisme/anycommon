@@ -1,8 +1,7 @@
-package com.anycommon.cache.controller;
+package com.anycommon.oss.controller;
 
-import com.aliyun.oss.model.CannedAccessControlList;
-import com.anycommon.cache.dto.OssDTO;
-import com.anycommon.cache.service.OssService;
+import com.anycommon.oss.dto.OssDTO;
+import com.anycommon.oss.service.OssService;
 import com.anycommon.response.common.ResponseBody;
 import com.anycommon.response.constant.DownloadEnum;
 import com.anycommon.response.expception.AppSystemException;
