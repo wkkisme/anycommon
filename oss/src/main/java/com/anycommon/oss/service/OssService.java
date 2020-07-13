@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /**
- * oss 服务
+ * oss 服务 默认为阿里云服务，如果有扩展请实现此类
  * @author wangkai
  */
 public interface OssService {

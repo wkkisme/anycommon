@@ -20,11 +20,12 @@ import static java.util.UUID.randomUUID;
 import static org.apache.commons.io.FilenameUtils.*;
 
 /**
+ * 默认
  * @author wangkai
  */
-@Service
-public class OssServiceImpl implements OssService {
-    private final static Logger logger = LoggerFactory.getLogger(OssServiceImpl.class);
+@Service("ossService")
+public class AliyunOssServiceImpl implements OssService {
+    private final static Logger logger = LoggerFactory.getLogger(AliyunOssServiceImpl.class);
     @Resource
     private OssConfig ossConfig;
 
