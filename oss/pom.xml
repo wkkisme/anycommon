@@ -115,9 +115,21 @@
             <groupId>com.anycommon</groupId>
             <artifactId>response-common-base</artifactId>
             <version>1.0.0</version>
+            <scope>provided</scope>
         </dependency>
 
 
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2016345-release-JqDblY/</url>
+        </repository>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2016345-snapshot-zGnJ30/</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
