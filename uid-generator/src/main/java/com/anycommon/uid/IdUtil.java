@@ -11,7 +11,7 @@ package com.anycommon.uid;
 import java.net.SocketException;
 
 /**
- * id生成器，每个业务应该保证code不一样，这样生成到id才能保证唯一
+ * id生成器，每个业务应该保证snowServiceId不一样，这样生成到id才能保证唯一
  *
  * @author wushuaiping
  * @version $Id: IdUtil.java, v 0.1 2020年01月09日 20:17 wushuaiping Exp $
