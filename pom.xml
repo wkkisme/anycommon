@@ -15,6 +15,7 @@
         <module>oss</module>
         <module>common</module>
         <module>uid-generator</module>
+        <module>logger</module>
     </modules>
 
     <packaging>pom</packaging>
