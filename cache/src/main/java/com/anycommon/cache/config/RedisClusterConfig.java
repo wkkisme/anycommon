@@ -43,7 +43,7 @@ import java.util.Set;
 @Configuration
 @EnableCaching
 @ConditionalOnProperty(prefix = "platform.redis", name = "type",havingValue = "cluster")
-@PropertySource(value = "classpath:redis-${spring.profiles.active}.properties")
+@PropertySource(value = "classpath:redis-${spring.profiles.active}-${platform.redis.type}.properties")
 public class RedisClusterConfig {
 
 

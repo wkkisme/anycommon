@@ -12,11 +12,14 @@ import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * 日志数据源配置
@@ -32,24 +35,28 @@ public class LoggerDataSourceConfig {
 
 
 
-    @Bean("loggerDataSource")
-    @ConfigurationProperties(prefix = "platform.logger.datasource")
-    public DataSource getDataSource() {
-        return DataSourceBuilder.create().type(HikariDataSource.class).build();
+    @Resource
+    private ConfigurableEnvironment environment;
+
+
+
+    public DataSource getDataSource()  {
+        HikariDataSource hikariDataSource = new HikariDataSource();
+        hikariDataSource.setJdbcUrl(environment.getProperty("platform.logger.datasource.druid.url"));
+        hikariDataSource.setDataSourceClassName(environment.getProperty("platform.logger.datasource.druid.driverClassName"));
+        hikariDataSource.setUsername(environment.getProperty("platform.logger.datasource.druid.username"));
+        hikariDataSource.setPassword(environment.getProperty("platform.logger.datasource.druid.password"));
+        return hikariDataSource;
     }
 
-    @Bean(name = "loggerTransactionManager")
-    public DataSourceTransactionManager primaryTransactionManager(@Qualifier("loggerDataSource") DataSource dataSource) throws Exception {
-        return new DataSourceTransactionManager(dataSource);
-    }
+
 
     @Bean("loggerSqlSessionFactory")
-    public SqlSessionFactory getSqlSessionFactory(@Qualifier("loggerDataSource") DataSource dataSource) throws Exception {
+    public SqlSessionFactory getSqlSessionFactory() throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource);  // 设置数据源bean
+        sessionFactory.setDataSource(getDataSource());  // 设置数据源bean
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources("classpath:loggermapper/*.xml"));  // 设置mapper文件路径
-
         return sessionFactory.getObject();
     }
 

@@ -13,10 +13,10 @@ public class LoggerConfig {
     @Value("${platform.logger.appId}")
     private String appId;
 
-    @Value("${platform.logger.appId}")
+    @Value("${platform.logger.appName}")
     private String appName;
 
-    @Value("${platform.logger.appId}")
+    @Value("${platform.logger.orgCode}")
     private String orgCode;
 
     public String getAppId() {

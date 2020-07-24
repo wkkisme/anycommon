@@ -74,7 +74,7 @@ public class PlatformBusinessLogExample {
     }
 
     /**
-     * platform_business_log 2020-07-23
+     * platform_business_log 2020-07-24
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -799,7 +799,7 @@ public class PlatformBusinessLogExample {
     }
 
     /**
-     * platform_business_log 2020-07-23
+     * platform_business_log 2020-07-24
      */
     public static class Criterion {
         private String condition;

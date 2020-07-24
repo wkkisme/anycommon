@@ -30,7 +30,7 @@ import java.time.Duration;
 @ConditionalOnClass(RedisOperations.class)
 @EnableConfigurationProperties(RedisProperties.class)
 @ConditionalOnProperty(prefix = "platform.redis", name = "type",havingValue = "standalone")
-@PropertySource(value = "classpath:redis-${spring.profiles.active}-${platform.redis}.properties")
+@PropertySource(value = "classpath:redis-${spring.profiles.active}-${platform.redis.type}.properties")
 public class RedisStandAloneConfig extends CachingConfigurerSupport {
 
     /**
