@@ -5,6 +5,7 @@ import com.anycommon.logger.dp.PlatformBusinessLogDP;
 import com.anycommon.logger.qo.LoggerQO;
 import com.anycommon.logger.service.LoggerService;
 import com.anycommon.response.common.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +24,8 @@ public class CommonLoggerController {
      * @param qo  qo
      * @return ResponseBody<List<PlatformBusinessLogDP>>
      */
-    public ResponseBody<List<PlatformBusinessLogDP>> getLoggers(LoggerQO qo){
+    @RequestMapping("/getLoggers")
+    public ResponseBody<List<PlatformBusinessLogDP>> getLoggers(@RequestBody LoggerQO qo){
 
         return loggerService.getLogs(qo);
     }

@@ -1,0 +1,21 @@
+{
+  "hints": [],
+  "groups": [],
+  "properties": [
+    {
+      "name": "platform.logger.appName",
+      "type": "java.lang.String",
+      "description": "[必填]应用名称"
+    },
+    {
+      "name": "platform.logger.appId",
+      "type": "java.lang.String",
+      "description": "[必填]应用id"
+    },
+    {
+      "name": "platform.logger.orgCode",
+      "type": "java.lang.String",
+      "description": "当前应用系统所属机构"
+    }
+  ]
+}

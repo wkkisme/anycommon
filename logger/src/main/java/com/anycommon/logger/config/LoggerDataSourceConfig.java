@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -31,9 +32,8 @@ import java.util.Properties;
 @Configuration
 @PropertySource(value = {"classpath:logger-${spring.profiles.active}.properties"})
 @MapperScan(basePackages = "com.anycommon.logger.mapper", sqlSessionFactoryRef = "loggerSqlSessionFactory")
+@ComponentScan("com.anycommon.logger")
 public class LoggerDataSourceConfig {
-
-
 
     @Resource
     private ConfigurableEnvironment environment;
@@ -43,9 +43,10 @@ public class LoggerDataSourceConfig {
     public DataSource getDataSource()  {
         HikariDataSource hikariDataSource = new HikariDataSource();
         hikariDataSource.setJdbcUrl(environment.getProperty("platform.logger.datasource.druid.url"));
-        hikariDataSource.setDataSourceClassName(environment.getProperty("platform.logger.datasource.druid.driverClassName"));
+        hikariDataSource.setDataSourceClassName(environment.getProperty("platform.logger.datasource.druid.type"));
         hikariDataSource.setUsername(environment.getProperty("platform.logger.datasource.druid.username"));
         hikariDataSource.setPassword(environment.getProperty("platform.logger.datasource.druid.password"));
+        hikariDataSource.setDriverClassName(environment.getProperty("platform.logger.datasource.druid.driverClassName"));
         return hikariDataSource;
     }
 

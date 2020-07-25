@@ -37,30 +37,6 @@ public class PlatformBusinessLogDP extends BaseDO implements Serializable {
     private String orgCode;
 
     /**
-     * 
-     */
-    @ApiModelProperty(value="gmtCreate")
-    private Date gmtCreate;
-
-    /**
-     * 
-     */
-    @ApiModelProperty(value="creator")
-    private String creator;
-
-    /**
-     * 
-     */
-    @ApiModelProperty(value="gmtModified")
-    private Date gmtModified;
-
-    /**
-     * 
-     */
-    @ApiModelProperty(value="modifier")
-    private String modifier;
-
-    /**
      * 入参
      */
     @ApiModelProperty(value="preParams入参")
@@ -74,12 +50,10 @@ public class PlatformBusinessLogDP extends BaseDO implements Serializable {
 
     public PlatformBusinessLogDP addCheck(){
 
-        if (StringUtils.isAnyBlank(operatorMethodName,creator,orgCode,appName,appId)){
+        if (StringUtils.isAnyBlank(operatorMethodName,super.getCreator(),orgCode,appName,appId)){
             ResponseBodyWrapper.failParamException();
         }
-        gmtCreate =new Date();
-        gmtModified = new Date();
-
+        this.beforeInsert();
         return this;
     }
     /**
@@ -149,70 +123,6 @@ public class PlatformBusinessLogDP extends BaseDO implements Serializable {
      */
     public void setOrgCode(String orgCode) {
         this.orgCode = orgCode == null ? null : orgCode.trim();
-    }
-
-    /**
-     * 
-     * @return gmt_create 
-     */
-    public Date getGmtCreate() {
-        return gmtCreate;
-    }
-
-    /**
-     * 
-     * @param gmtCreate 
-     */
-    public void setGmtCreate(Date gmtCreate) {
-        this.gmtCreate = gmtCreate;
-    }
-
-    /**
-     * 
-     * @return creator 
-     */
-    public String getCreator() {
-        return creator;
-    }
-
-    /**
-     * 
-     * @param creator 
-     */
-    public void setCreator(String creator) {
-        this.creator = creator == null ? null : creator.trim();
-    }
-
-    /**
-     * 
-     * @return gmt_modified 
-     */
-    public Date getGmtModified() {
-        return gmtModified;
-    }
-
-    /**
-     * 
-     * @param gmtModified 
-     */
-    public void setGmtModified(Date gmtModified) {
-        this.gmtModified = gmtModified;
-    }
-
-    /**
-     * 
-     * @return modifier 
-     */
-    public String getModifier() {
-        return modifier;
-    }
-
-    /**
-     * 
-     * @param modifier 
-     */
-    public void setModifier(String modifier) {
-        this.modifier = modifier == null ? null : modifier.trim();
     }
 
     /**

@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.anycommon.logger.config.LoggerConfig,\
+com.anycommon.logger.config.LoggerDubboInitConfig,\
+com.anycommon.logger.config.LoggerDataSourceConfig
+
