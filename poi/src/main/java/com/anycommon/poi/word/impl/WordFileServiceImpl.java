@@ -5,6 +5,7 @@ import com.aliyun.oss.OSSClient;
 import com.anycommon.poi.config.WordConfig;
 import com.anycommon.poi.word.Question;
 import com.anycommon.poi.word.WordFileService;
+import org.apache.poi.ss.formula.functions.T;
 import org.docx4j.Docx4J;
 import org.docx4j.Docx4jProperties;
 import org.docx4j.convert.out.HTMLSettings;
@@ -13,6 +14,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -28,6 +31,19 @@ import java.util.stream.Collectors;
 
 @Component
 public class WordFileServiceImpl implements WordFileService {
+    private static final Logger logger = LoggerFactory.getLogger(WordFileServiceImpl.class);
+
+    static {
+        String property = System.getProperty("user.dir");
+        File word = new File(property + "/poi/word");
+        File html = new File(property + "/poi/html");
+        if (!word.exists() && word.mkdir()) {
+            logger.info("创建单文件夹成功！创建后的文件夹路径为：" + word.getPath() + ",文件夹的上级目录为：" + word.getParent());
+        }
+        if (!word.exists() && html.mkdir()) {
+            logger.info("创建单文件夹成功！创建后的文件夹路径为：" + html.getPath() + ",文件夹的上级目录为：" + html.getParent());
+        }
+    }
 
     @Resource
     private WordConfig wordConfig;
@@ -71,10 +87,9 @@ public class WordFileServiceImpl implements WordFileService {
      * @param clz        clz
      * @param <T>
      * @param <K>
-     * @param htmlPath   html存放路径
      */
     @Override
-    public  <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in, String htmlPath) throws Exception {
+    public <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in) throws Exception {
         // word转html
         docx2html(in, htmlPath);
         // 解析html
@@ -89,7 +104,7 @@ public class WordFileServiceImpl implements WordFileService {
      * @param <T>
      * @param <K>
      */
-    private <T, K> List<T> readHTML2Class( List<T> resultList, Class<K> clz) throws IOException {
+    private <T, K> List<T> readHTML2Class(List<T> resultList, Class<K> clz) throws IOException {
         // 属性map
         Map<String, String> propertyMap = new HashMap<>();
         // 实体map列表
@@ -158,7 +173,7 @@ public class WordFileServiceImpl implements WordFileService {
      *
      * @param htmlPath htmlPath
      */
-    private  void docx2html(InputStream in, String htmlPath) throws Exception {
+    private void docx2html(InputStream in, String htmlPath) throws Exception {
         File file = new File(htmlPath);
         if (!file.exists()) {
             try {

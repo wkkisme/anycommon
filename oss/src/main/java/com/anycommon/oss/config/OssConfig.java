@@ -27,7 +27,7 @@ public class OssConfig {
     @Value("${platform.oss.accessKeyId}")
     private String accessKeyId;
 
-    @Value("${platform.oss.accessKeySecret}")
+    @Value("${platform.oss.accessSecret}")
     private String accessKeySecret;
 
     @Value("${platform.oss.bucketName}")

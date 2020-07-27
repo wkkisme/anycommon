@@ -24,11 +24,12 @@ public class WordConfig {
     @Value("${platform.poi.accessKeyId}")
     private String accessKeyId;
 
-    @Value("${platform.poi.accessKeySecret}")
+    @Value("${platform.poi.accessSecret}")
     private String accessKeySecret;
 
     @Value("${platform.poi.bucketName}")
     private String bucketName;
+
 
 
 
