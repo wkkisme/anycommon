@@ -82,19 +82,18 @@ public class WordUtils {
         // word转html
         docx2html(in, htmlPath);
         // 解析html
-        return readHTML2Class(htmlPath, resultList, clz);
+        return readHTML2Class(resultList, clz);
     }
 
     /**
      * 解析html
      *
-     * @param htmlPath
      * @param resultList
      * @param clz
      * @param <T>
      * @param <K>
      */
-    private <T, K> List<T> readHTML2Class(String htmlPath, List<T> resultList, Class<K> clz) throws IOException {
+    private <T, K> List<T> readHTML2Class( List<T> resultList, Class<K> clz) throws IOException {
         // 属性map
         Map<String, String> propertyMap = new HashMap<>();
         // 实体map列表
