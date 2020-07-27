@@ -78,7 +78,7 @@
 
 
         <table tableName="platform_business_log" domainObjectName="PlatformBusinessLog" mapperName="PlatformBusinessLogMapper">
-            <property name="rootClass" value="com.anycommon.response.common.BaseDO"/>
+            <property name="rootClass" value="com.anycommon.poi.common.BaseDO"/>
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 

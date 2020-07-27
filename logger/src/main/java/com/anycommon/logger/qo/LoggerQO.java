@@ -1,6 +1,6 @@
 package com.anycommon.logger.qo;
 
-import com.anycommon.response.common.BaseQO;
+import com.anycommon.poi.common.BaseQO;
 
 import java.io.Serializable;
 

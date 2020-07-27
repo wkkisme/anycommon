@@ -16,6 +16,7 @@
         <module>common</module>
         <module>uid-generator</module>
         <module>logger</module>
+        <module>poi</module>
     </modules>
 
     <packaging>pom</packaging>

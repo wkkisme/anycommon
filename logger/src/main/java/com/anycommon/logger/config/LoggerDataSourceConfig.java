@@ -43,7 +43,7 @@ public class LoggerDataSourceConfig {
     public DataSource getDataSource()  {
         HikariDataSource hikariDataSource = new HikariDataSource();
         hikariDataSource.setJdbcUrl(environment.getProperty("platform.logger.datasource.druid.url"));
-        hikariDataSource.setDataSourceClassName(environment.getProperty("platform.logger.datasource.druid.type"));
+//        hikariDataSource.setDataSourceClassName(environment.getProperty("platform.logger.datasource.druid.type"));
         hikariDataSource.setUsername(environment.getProperty("platform.logger.datasource.druid.username"));
         hikariDataSource.setPassword(environment.getProperty("platform.logger.datasource.druid.password"));
         hikariDataSource.setDriverClassName(environment.getProperty("platform.logger.datasource.druid.driverClassName"));

@@ -1,14 +1,11 @@
 package com.anycommon.logger.dp;
 
-import com.anycommon.response.common.BaseDO;
-import com.anycommon.response.utils.ResponseBodyWrapper;
+import com.anycommon.poi.common.BaseDO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.xml.crypto.Data;
 import java.io.Serializable;
-import java.util.Date;
 
 @ApiModel(value="com.anycommon.logger.domain.HeroLandBusinessLog")
 public class PlatformBusinessLogDP extends BaseDO implements Serializable {

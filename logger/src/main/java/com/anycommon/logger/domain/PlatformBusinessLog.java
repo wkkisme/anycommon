@@ -1,6 +1,6 @@
 package com.anycommon.logger.domain;
 
-import com.anycommon.response.common.BaseDO;
+import com.anycommon.poi.common.BaseDO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;

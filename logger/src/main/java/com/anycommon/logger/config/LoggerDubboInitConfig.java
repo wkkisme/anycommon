@@ -15,13 +15,13 @@ public class LoggerDubboInitConfig {
     @Reference(group = "platform-sso",version = "1.0.0",check = false)
     private PlatformSsoAclServiceFacade platformSsoAclServiceFacade;
 
-    @Bean
+    @Bean("platformSsoService")
     public PlatformSsoServiceFacade getPlatformSsoServiceFacade(){
 
         return platformSsoServiceFacade;
     }
 
-    @Bean
+    @Bean("platformSsoAclService")
     public PlatformSsoAclServiceFacade getPlatformSsoAclServiceFacade(){
 
         return platformSsoAclServiceFacade;

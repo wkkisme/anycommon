@@ -3,7 +3,7 @@ package com.anycommon.logger.service;
 
 import com.anycommon.logger.dp.PlatformBusinessLogDP;
 import com.anycommon.logger.qo.LoggerQO;
-import com.anycommon.response.common.ResponseBody;
+import com.anycommon.poi.common.ResponseBody;
 
 import java.util.List;
 

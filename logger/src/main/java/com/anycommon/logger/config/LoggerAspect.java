@@ -5,9 +5,11 @@ import com.anycommon.logger.annotation.CommonLogger;
 import com.anycommon.logger.dp.PlatformBusinessLogDP;
 import com.anycommon.logger.service.LoggerService;
 import com.anycommon.logger.util.CookieUtils;
+import com.google.common.collect.Lists;
 import com.platform.sso.domain.dp.PlatformSysUserDP;
 import com.platform.sso.facade.PlatformSsoServiceFacade;
 import com.platform.sso.facade.result.RpcResult;
+import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -22,9 +24,15 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 @Aspect
@@ -35,7 +43,7 @@ public class LoggerAspect {
     @Resource
     private LoggerService loggerService;
 
-    @Resource
+    @Resource(name = "platformSsoService")
     private PlatformSsoServiceFacade platformSsoServiceFacade;
 
     @Resource
@@ -80,7 +88,11 @@ public class LoggerAspect {
 
             Object[] args = joinPoint.getArgs();
             StringBuilder params = new StringBuilder();
-            for (Object arg : args) {
+            List<?> stream = ArrayUtils.isEmpty(args) ? new ArrayList<>() :Arrays.asList(args);
+            List<Object> logArgs = stream
+                    .stream().filter(arg -> (!(arg instanceof HttpServletRequest) && !(arg instanceof HttpServletResponse)))
+                    .collect(Collectors.toList());
+            for (Object arg : logArgs) {
                 String param = "";
                 try {
                     param = JSON.toJSONString(arg);
