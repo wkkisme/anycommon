@@ -1,8 +1,10 @@
-package com.anycommon.poi.word;
+package com.anycommon.poi.word.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.aliyun.oss.OSSClient;
 import com.anycommon.poi.config.WordConfig;
+import com.anycommon.poi.word.Question;
+import com.anycommon.poi.word.WordFileService;
 import org.docx4j.Docx4J;
 import org.docx4j.Docx4jProperties;
 import org.docx4j.convert.out.HTMLSettings;
@@ -24,15 +26,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
-/**
- * word文档解析试卷试题工具类
- *
- * @author wangkai
- * @date 2020-07-27 10:44
- */
 @Component
-public class WordUtils {
+public class WordFileServiceImpl implements WordFileService {
 
     @Resource
     private WordConfig wordConfig;
@@ -78,6 +73,7 @@ public class WordUtils {
      * @param <K>
      * @param htmlPath   html存放路径
      */
+    @Override
     public  <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in, String htmlPath) throws Exception {
         // word转html
         docx2html(in, htmlPath);
