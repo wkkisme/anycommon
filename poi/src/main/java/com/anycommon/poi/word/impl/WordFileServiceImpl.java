@@ -5,7 +5,6 @@ import com.aliyun.oss.OSSClient;
 import com.anycommon.poi.config.WordConfig;
 import com.anycommon.poi.word.Question;
 import com.anycommon.poi.word.WordFileService;
-import org.apache.poi.ss.formula.functions.T;
 import org.docx4j.Docx4J;
 import org.docx4j.Docx4jProperties;
 import org.docx4j.convert.out.HTMLSettings;
@@ -33,51 +32,10 @@ import java.util.stream.Collectors;
 public class WordFileServiceImpl implements WordFileService {
     private static final Logger logger = LoggerFactory.getLogger(WordFileServiceImpl.class);
 
-    static {
-        String property = System.getProperty("user.dir");
-        File word = new File(property + "/poi/word");
-        File html = new File(property + "/poi/html");
-        if (!word.exists() && word.mkdir()) {
-            logger.info("创建单文件夹成功！创建后的文件夹路径为：" + word.getPath() + ",文件夹的上级目录为：" + word.getParent());
-        }
-        if (!word.exists() && html.mkdir()) {
-            logger.info("创建单文件夹成功！创建后的文件夹路径为：" + html.getPath() + ",文件夹的上级目录为：" + html.getParent());
-        }
-    }
 
     @Resource
     private WordConfig wordConfig;
 
-    /**
-     * word文档中图片存放本地位置
-     */
-    @Value("${platform.poi.wordLocalAddress}")
-    private String wordImgUrl;
-
-    /**
-     * word文档中图片存放本地位置
-     */
-    @Value("${platform.poi.htmlLocalAddress}")
-    private String htmlPath;
-
-
-    /**
-     * 测试
-     *
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
-        System.out.println("===========执行开始===========");
-        long begin = System.currentTimeMillis();
-        List<Question> questionList = new ArrayList<>();
-//        questionList = importWord(questionList, Question.class, new FileInputStream("null"), htmlPath);
-//        questionList.forEach(e -> {
-//            System.out.println(e.toString());
-//        });
-        long end = System.currentTimeMillis();
-        System.out.println("===========执行结束，时间：" + (end - begin) + "ms===========");
-    }
 
 
     /**
@@ -89,11 +47,11 @@ public class WordFileServiceImpl implements WordFileService {
      * @param <K>
      */
     @Override
-    public <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in) throws Exception {
+    public <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in, String htmlPath, String wordImgPath) throws Exception {
         // word转html
-        docx2html(in, htmlPath);
+        docx2html(in, htmlPath, wordImgPath);
         // 解析html
-        return readHTML2Class(resultList, clz);
+        return readHTML2Class(resultList, clz, htmlPath, wordImgPath);
     }
 
     /**
@@ -104,7 +62,7 @@ public class WordFileServiceImpl implements WordFileService {
      * @param <T>
      * @param <K>
      */
-    private <T, K> List<T> readHTML2Class(List<T> resultList, Class<K> clz) throws IOException {
+    private <T, K> List<T> readHTML2Class(List<T> resultList, Class<K> clz, String htmlPath, String wordImgUrl) throws IOException {
         // 属性map
         Map<String, String> propertyMap = new HashMap<>();
         // 实体map列表
@@ -151,9 +109,9 @@ public class WordFileServiceImpl implements WordFileService {
             String propertyMapValue = (propertyMap.get(thisProperName) == null ? "" : propertyMap.get(thisProperName));
             // 拼接属性值
             propertyMapValue += propertyValue;
-            propertyMap.put(thisProperName, propertyMapValue);
 
-            if (i > 10 && thisProperName.equals("id")) {
+            propertyMap.put(thisProperName, propertyMapValue);
+            if (i > 10 && "id".equals(thisProperName)|| i == links.size() - 1) {
                 questionMapList.add(propertyMap);
                 propertyMap = new LinkedHashMap<>();
             }
@@ -173,7 +131,7 @@ public class WordFileServiceImpl implements WordFileService {
      *
      * @param htmlPath htmlPath
      */
-    private void docx2html(InputStream in, String htmlPath) throws Exception {
+    private void docx2html(InputStream in, String htmlPath, String wordImgUrl) throws Exception {
         File file = new File(htmlPath);
         if (!file.exists()) {
             try {
@@ -220,7 +178,6 @@ public class WordFileServiceImpl implements WordFileService {
         Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000 * 100);
         // 生成以GET方法访问的签名URL，访客可以直接通过浏览器访问相关内容。
         URL url = ossClient.generatePresignedUrl(bucketName, objectName, expiration);
-        ossClient.shutdown();
         return url.toString();
     }
 

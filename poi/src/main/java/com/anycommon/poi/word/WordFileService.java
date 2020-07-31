@@ -15,6 +15,7 @@ import java.util.*;
 public interface WordFileService {
 
     /**
+     * word导入解析
      * @param resultList  结果集存放地方
      * @param clz
      * @param in
@@ -23,5 +24,5 @@ public interface WordFileService {
      * @return
      * @throws Exception
      */
-     <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in) throws Exception;
+     <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in,String htmlPath, String wordImgPath) throws Exception;
 }
