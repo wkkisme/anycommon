@@ -37,32 +37,32 @@ public class WordFileServiceImpl implements WordFileService {
     private WordConfig wordConfig;
 
 
-
     /**
      * 导入word文档获取试题列表
-     *
      * @param resultList
-     * @param clz        clz
+     * @param clz
      * @param <T>
      * @param <K>
+     * @param htmlPath html存放路径
      */
     @Override
-    public <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in, String htmlPath, String wordImgPath) throws Exception {
+    public  <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in, String htmlPath, String wordImgPath) throws Exception {
         // word转html
-        docx2html(in, htmlPath, wordImgPath);
+        docx2html(in, htmlPath,wordImgPath);
         // 解析html
-        return readHTML2Class(resultList, clz, htmlPath, wordImgPath);
+        String id ="id";
+        return readHTML2Class(htmlPath, resultList, clz, id);
     }
 
     /**
      * 解析html
-     *
+     * @param htmlPath
      * @param resultList
      * @param clz
      * @param <T>
      * @param <K>
      */
-    private <T, K> List<T> readHTML2Class(List<T> resultList, Class<K> clz, String htmlPath, String wordImgUrl) throws IOException {
+    private  <T, K> List<T> readHTML2Class(String htmlPath, List<T> resultList, Class<K> clz, String id) throws IOException {
         // 属性map
         Map<String, String> propertyMap = new HashMap<>();
         // 实体map列表
@@ -89,7 +89,7 @@ public class WordFileServiceImpl implements WordFileService {
                 String src = img.attr("src");
 
                 // 获取图片，上传到阿里云oss
-                src = uploadOss(src);
+                src = uploadOSS(src);
                 img.attr("src", src);
 
                 propertyValue = link.html();
@@ -106,12 +106,12 @@ public class WordFileServiceImpl implements WordFileService {
                 }
             }
 
-            String propertyMapValue = (propertyMap.get(thisProperName) == null ? "" : propertyMap.get(thisProperName));
+            String propertyMapValue = (propertyMap.get(thisProperName)==null?"":propertyMap.get(thisProperName));
             // 拼接属性值
             propertyMapValue += propertyValue;
-
             propertyMap.put(thisProperName, propertyMapValue);
-            if (i > 10 && "id".equals(thisProperName)|| i == links.size() - 1) {
+
+            if ((i > 10 && thisProperName.equals(id)) || i == links.size() - 1) {
                 questionMapList.add(propertyMap);
                 propertyMap = new LinkedHashMap<>();
             }
@@ -119,8 +119,8 @@ public class WordFileServiceImpl implements WordFileService {
 
         // 解析questionMapList，注入属性值
         questionMapList.forEach(e -> {
-            Question question = JSON.parseObject(JSON.toJSONString(e), Question.class);
-            resultList.add((T) question);
+            T t = (T) JSON.parseObject(JSON.toJSONString(e), clz);
+            resultList.add(t);
         });
 
         return resultList;
@@ -155,15 +155,15 @@ public class WordFileServiceImpl implements WordFileService {
         os = new FileOutputStream(htmlPath);
         Docx4jProperties.setProperty("docx4j.Convert.Out.HTML.OutputMethodXML", true);
         Docx4J.toHTML(htmlSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
+        long end = System.currentTimeMillis();
     }
 
     /**
      * 上传图片到阿里云oss
-     *
-     * @param fileName fileName
-     * @return String
+     * @param fileName
+     * @return
      */
-    public String uploadOss(String fileName) {
+    public  String uploadOSS(String fileName) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         // 获取文件的后缀名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -183,11 +183,10 @@ public class WordFileServiceImpl implements WordFileService {
 
     /**
      * 获取类的属性集合
-     *
-     * @param clazz clazz
-     * @return List<Field>
+     * @param clazz
+     * @return
      */
-    public static List<Field> getFields(Class<?> clazz) {
+    public  List<Field> getFields(Class<?> clazz) {
         if (clazz == null) {
             return Collections.emptyList();
         }
@@ -198,16 +197,16 @@ public class WordFileServiceImpl implements WordFileService {
 
     /**
      * 获取类里面属性名称
-     *
-     * @param clazz clazz
-     * @return List<String>
+     * @param clazz
+     * @return
      */
-    public static List<String> getFieldString(Class<?> clazz) {
+    public  List<String> getFieldString(Class<?> clazz) {
         List<Field> list = getFields(clazz);
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyList();
         }
         return list.stream().map(Field::getName).collect(Collectors.toList());
     }
+
 
 }
