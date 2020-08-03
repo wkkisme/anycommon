@@ -196,7 +196,10 @@ public class WordFileServiceImpl implements WordFileService {
         String bucketName = wordConfig.getBucketName();
         ossClient.putObject(bucketName, objectName, file);
         // 生成以GET方法访问的签名URL，访客可以直接通过浏览器访问相关内容。
-        URL url = ossClient.generatePresignedUrl(new GeneratePresignedUrlRequest(wordConfig.getBucketName(),objectName));
+        // 设置URL过期时间为1小时。
+        Date expiration = new Date(System.currentTimeMillis() * 3);
+        // 生成以GET方法访问的签名URL，访客可以直接通过浏览器访问相关内容。
+        URL url = ossClient.generatePresignedUrl(bucketName, objectName, expiration);
         return url.toString();
     }
 
