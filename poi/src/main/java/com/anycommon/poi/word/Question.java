@@ -1,5 +1,7 @@
 package com.anycommon.poi.word;
 
+import com.anycommon.poi.annotation.NoFormat;
+
 /**
  * @ClassName Question
  * @Author wangkai
@@ -22,6 +24,7 @@ public class Question {
     private String option_e;
     private String option_z;
 
+    @NoFormat
     private String answer1;
     private String answer2;
 
