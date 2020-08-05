@@ -35,6 +35,8 @@ public enum ErrMsgEnum {
 
     GLOBAL_SESSIOB_ID_EMPTY("40007", "globalSessionId不能为空！"),
 
+    USER_ACCOUNT_NOT_EXIT("40008", "用户账户不存在"),
+
 
     /**
      * 忘记密码
@@ -112,8 +114,12 @@ public enum ErrMsgEnum {
 
     EXIST_CHILD_MENU("", "删除失败,存在子菜单或子功能点"),
 
-    LOCK_USER("LOCKED", "提示尝试次数过多请联系管理员。");
+    LOCK_USER("LOCKED", "提示尝试次数过多请联系管理员。"),
 
+    PERMISSION_NOT_EXIST("PERMISSION_NOT_EXIST","权限不存在"),
+    ROLE_NOT_EXIST("ROLE_NOT_EXIST","角色不存在"),
+    USER_NOT_EXIST("USER_NOT_EXIST","用户不存在"),
+    ;
 
     private String errorCode;
     private String errorMessage;
