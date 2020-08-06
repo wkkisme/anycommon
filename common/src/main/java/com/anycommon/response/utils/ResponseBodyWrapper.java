@@ -79,7 +79,11 @@ public class ResponseBodyWrapper implements Serializable {
         } catch (Exception e) {
             throw new AppSystemException(e);
         }
-        tResponseBody.setPage(new Pagination(qo.getPageIndex(), qo.getPageSize(), total));
+        if (!qo.getNeedPage()){
+            tResponseBody.setPage(new Pagination(1, Math.toIntExact(total), total));
+        }else {
+            tResponseBody.setPage(new Pagination(qo.getPageIndex(), qo.getPageSize(), total));
+        }
         return tResponseBody;
     }
 
