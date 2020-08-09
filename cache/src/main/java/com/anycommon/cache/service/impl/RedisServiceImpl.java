@@ -54,6 +54,11 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
+    public List<Object> getKeys(List<String> keys) {
+        return this.redisTemplate.opsForValue().multiGet(keys);
+    }
+
+    @Override
     public Boolean expire(String key, long time) {
         return redisTemplate.expire(key, time, TimeUnit.SECONDS);
     }
