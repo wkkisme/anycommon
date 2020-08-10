@@ -146,8 +146,8 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
-    public Long sAdd(String key, long time, Object... values) {
-        Long count = redisTemplate.opsForSet().add(key, values);
+    public Long sAdd(String key,Object value,long time) {
+        Long count = redisTemplate.opsForSet().add(key, value);
         expire(key, time);
         return count;
     }
