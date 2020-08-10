@@ -1,6 +1,8 @@
 package com.anycommon.response.expception;
 
 
+import com.anycommon.response.constant.ErrMsgEnum;
+
 /**
  * anycommon-parent
  *
@@ -9,6 +11,23 @@ package com.anycommon.response.expception;
  */
 
 public class AppSystemException extends RuntimeException{
+
+
+    private String    errorCode;
+    private String msg;
+
+    public AppSystemException(String errorCode, String msg) {
+        super(msg);
+        this.errorCode = errorCode;
+        this.msg = msg;
+    }
+
+    public AppSystemException(ErrMsgEnum errorCode) {
+        super(errorCode.getErrorMessage());
+        this.errorCode = errorCode.getErrorCode();
+        this.msg = errorCode.getErrorMessage();
+    }
+
     public AppSystemException() {
         super();
     }

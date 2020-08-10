@@ -41,6 +41,9 @@ public interface RedisService {
      */
     Long del(List<String> keys);
 
+
+    List<Object> getKeys(List<String> keys);
+
     /**
      * 设置过期时间
      */
