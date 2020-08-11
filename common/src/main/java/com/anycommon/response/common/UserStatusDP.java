@@ -1,5 +1,7 @@
 package com.anycommon.response.common;
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.Serializable;
 
 /**
@@ -18,6 +20,36 @@ public class UserStatusDP implements Serializable {
     private String orgCode;
 
     private String topicId;
+
+    private Integer userStatus;
+
+    private String senderId;
+
+    private String addresseeId;
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getAddresseeId() {
+        return addresseeId;
+    }
+
+    public void setAddresseeId(String addresseeId) {
+        this.addresseeId = addresseeId;
+    }
+
+    public Integer getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
+    }
 
     public String getUserId() {
         return userId;
@@ -57,5 +89,10 @@ public class UserStatusDP implements Serializable {
 
     public void setTopicId(String topicId) {
         this.topicId = topicId;
+    }
+
+    public String toJSONString(){
+
+        return JSON.toJSONString(this);
     }
 }
