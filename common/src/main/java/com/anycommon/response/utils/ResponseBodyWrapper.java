@@ -39,8 +39,8 @@ public class ResponseBodyWrapper implements Serializable {
 
     public static <T> ResponseBody<T> fail(String msg, String code) {
         ResponseBody<T> result = new ResponseBody<>();
-        result.setErrCode(msg);
-        result.setErrMsg(code);
+        result.setErrCode(code);
+        result.setErrMsg(msg);
         result.setSuccess(false);
         return result;
     }
