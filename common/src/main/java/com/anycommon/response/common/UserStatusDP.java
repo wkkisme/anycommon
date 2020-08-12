@@ -27,6 +27,8 @@ public class UserStatusDP implements Serializable {
 
     private String addresseeId;
 
+    private Integer type;
+
     public String getSenderId() {
         return senderId;
     }
@@ -94,5 +96,13 @@ public class UserStatusDP implements Serializable {
     public String toJSONString(){
 
         return JSON.toJSONString(this);
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }
