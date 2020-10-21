@@ -1,5 +1,7 @@
 package com.anycommon.poi.word;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
 import com.anycommon.poi.annotation.NoFormat;
 
 /**
@@ -11,33 +13,56 @@ import com.anycommon.poi.annotation.NoFormat;
  */
 public class Question {
 
+    @Excel(name = "id")
     private String id;
+    @Excel(name = "passageid")
     private String passageid;
+    @Excel(name = "passage")
     private String passage;
+    @Excel(name = "question")
     private String question;
+    @Excel(name = "information")
     private String information;
 
+    @Excel(name = "option_a")
     private String option_a;
+    @Excel(name = "option_b")
     private String option_b;
+    @Excel(name = "option_c")
     private String option_c;
+    @Excel(name = "option_d")
     private String option_d;
+    @Excel(name = "option_e")
     private String option_e;
+    @Excel(name = "option_z")
     private String option_z;
 
     @NoFormat
+    @Excel(name = "answer1")
     private String answer1;
+    @Excel(name = "answer2")
     private String answer2;
 
+    @Excel(name = "parse")
     private String parse;
 
+    @Excel(name = "gradeid")
     private String gradeid;
+    @Excel(name = "subjectid")
     private String subjectid;
+    @Excel(name = "storage")
     private String storage;
+    @Excel(name = "think")
     private String think;
+    @Excel(name = "qtype")
     private String qtype;
+    @Excel(name = "diff")
     private String diff;
+    @Excel(name = "knowledges")
     private String knowledges;
+    @Excel(name = "knowledgeId")
     private String knowledgeId;
+    @Excel(name = "reference")
     private String reference;
 
     @Override
