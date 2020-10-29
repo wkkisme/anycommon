@@ -3,13 +3,7 @@ package com.anycommon.poi.word;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.anycommon.poi.annotation.NoFormat;
 
-/**
- * @ClassName Question
- * @Author wangkai
- * @Date 2020/7/26 13:51
- * @Description Question
- * @Version 1.0
- */
+
 public class BasicData {
 
     @Excel(name = "id")
@@ -18,6 +12,8 @@ public class BasicData {
     private String dataTypeId;
     @Excel(name = "name")
     private String name;
+    @Excel(name = "code")
+    private String code;
 
     public String getId() {
         return id;
@@ -43,12 +39,23 @@ public class BasicData {
         this.name = name;
     }
 
+
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "BasicData{" +
                 "id='" + id + '\'' +
                 ", dataTypeId='" + dataTypeId + '\'' +
                 ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
                 '}';
     }
 }
