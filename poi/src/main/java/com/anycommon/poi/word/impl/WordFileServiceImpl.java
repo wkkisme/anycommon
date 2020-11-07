@@ -7,6 +7,7 @@ import com.anycommon.poi.annotation.NoFormat;
 import com.anycommon.poi.config.WordConfig;
 import com.anycommon.poi.word.Question;
 import com.anycommon.poi.word.WordFileService;
+import org.apache.commons.lang3.StringUtils;
 import org.docx4j.Docx4J;
 import org.docx4j.Docx4jProperties;
 import org.docx4j.convert.out.HTMLSettings;
@@ -95,7 +96,9 @@ public class WordFileServiceImpl implements WordFileService {
                 String src = img.attr("src");
 
                 // 获取图片，上传到阿里云oss
-                src = uploadOSS(src);
+                if (StringUtils.isNotBlank(src )) {
+                    src = uploadOSS(src);
+                }
                 img.attr("src", src);
 
                 propertyValue = link.html();
