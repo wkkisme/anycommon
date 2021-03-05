@@ -109,7 +109,12 @@ public class WordFileServiceImpl implements WordFileService {
                 // 代表有可能为当前传入实体的属性
                 String propertyName = propertyText.substring(0, index);
                 if (fieldMap.get(propertyName) != null) {
-                    propertyValue = propertyText.substring(index + 1);
+                    if (propertyValue.contains("<img") && propertyValue.contains(propertyName)) {
+                        propertyValue = propertyValue.substring(propertyValue.indexOf(propertyName+":</span>")+propertyName.length()+8);
+                    } else {
+                        propertyValue = propertyText.substring(index + 1);
+                    }
+//                    propertyValue = propertyText.substring(index + 1);
                     thisProperName = propertyName;
                     // 去除“:”后如果对应字段存在于实体属性列表中，代表为对应属性
                     if (fieldMap.get(propertyName)) {
