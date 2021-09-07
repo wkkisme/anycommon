@@ -2,12 +2,17 @@ package com.anycommon.poi.word.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.aliyun.oss.OSSClient;
-import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.anycommon.poi.annotation.NoFormat;
 import com.anycommon.poi.config.WordConfig;
+import com.anycommon.poi.uitl.DocxUtil;
+import com.anycommon.poi.uitl.HeroDocxBean;
 import com.anycommon.poi.word.Question;
 import com.anycommon.poi.word.WordFileService;
+import fr.opensagres.poi.xwpf.converter.core.ImageManager;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLConverter;
+import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.docx4j.Docx4J;
 import org.docx4j.Docx4jProperties;
 import org.docx4j.convert.out.HTMLSettings;
@@ -18,7 +23,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -26,6 +30,7 @@ import javax.annotation.Resource;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -57,6 +62,38 @@ public class WordFileServiceImpl implements WordFileService {
         return readHTML2Class(htmlPath, resultList, clz, id);
     }
 
+//    @Override
+//    public List<Question> importWordAfterHandler(List<Question> resultList,String htmlPath) throws Exception {
+//        File input = new File(htmlPath);
+//        Document doc = Jsoup.parse(input, "UTF-8", "");
+//        List<HeroDocxBean> html1 = DocxUtil.createHtml(resultList,doc.outerHtml());
+//        for (int i = 0; i < resultList.size(); i++) {
+//            resultList.get(i).setQuestion(html1.get(i).getQuestion());
+//            resultList.get(i).setInformation(html1.get(i).getInformation());
+//            resultList.get(i).setPassage(html1.get(i).getPassage());
+//        }
+//        return resultList;
+//    }
+//
+    @Override
+    public List<Question> importWordAfterHandler(List<Question> resultList,InputStream inputStream) throws Exception {
+        // word文件
+        XWPFDocument document = new XWPFDocument(inputStream);
+
+        StringWriter stringWriter = new StringWriter();
+        XHTMLConverter xhtmlConverter = (XHTMLConverter) XHTMLConverter.getInstance();
+        XHTMLOptions options = XHTMLOptions.getDefault();
+        xhtmlConverter.convert(document, stringWriter, options);
+        String html = new String(stringWriter.toString().getBytes("utf-8"), "utf-8");
+        List<HeroDocxBean> html1 = DocxUtil.createHtml(resultList,html);
+        for (int i = 0; i < resultList.size(); i++) {
+            resultList.get(i).setQuestion(html1.get(i).getQuestion());
+            resultList.get(i).setInformation(html1.get(i).getInformation());
+            resultList.get(i).setPassage(html1.get(i).getPassage());
+        }
+        return resultList;
+    }
+
     /**
      * 解析html
      * @param htmlPath
@@ -67,9 +104,9 @@ public class WordFileServiceImpl implements WordFileService {
      */
     private  <T, K> List<T> readHTML2Class(String htmlPath, List<T> resultList, Class<K> clz, String id) throws IOException {
         // 属性map
-        Map<String, String> propertyMap = new HashMap<>();
+        Map<String, String> propertyMap = new LinkedHashMap<>();
         // 实体map列表
-        List<Map<String, String>> questionMapList = new ArrayList<>();
+        List<Map<String, String>> questionMapList = new LinkedList<>();
         // 当前传入实体的属性名列表
         Map<String, Boolean> fieldMap = getFieldMap(clz);
         if (fieldMap == null) {
@@ -144,8 +181,10 @@ public class WordFileServiceImpl implements WordFileService {
         // 解析questionMapList，注入属性值
         questionMapList.forEach(e -> {
             T t = (T) JSON.parseObject(JSON.toJSONString(e), clz);
+
             resultList.add(t);
         });
+
 
         return resultList;
     }

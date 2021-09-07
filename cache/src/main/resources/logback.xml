@@ -10,7 +10,7 @@
 
     <!-- 动态日志级别 -->
     <jmxConfigurator/>
-    <property name="app.name" value="anycommon-cache"/>
+    <property name="app.name" value="dainxin-cache"/>
     <!-- 定义日志文件 输出位置 -->
     <property name="log.home_dir" value="../logs/"/>
     <!-- 日志最大的历史 180 个 -->

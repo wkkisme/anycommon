@@ -1,6 +1,7 @@
 package com.anycommon.poi.word;
 
 import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.util.*;
 
@@ -16,7 +17,8 @@ public interface WordFileService {
 
     /**
      * word导入解析
-     * @param resultList  结果集存放地方
+     *
+     * @param resultList 结果集存放地方
      * @param clz
      * @param in
      * @param <T>
@@ -24,5 +26,8 @@ public interface WordFileService {
      * @return
      * @throws Exception
      */
-     <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in,String htmlPath, String wordImgPath) throws Exception;
+    <T, K> List<T> importWord(List<T> resultList, Class<K> clz, InputStream in, String htmlPath, String wordImgPath) throws Exception;
+
+//    List<Question> importWordAfterHandler(List<Question> resultList,String htmlPath) throws Exception;
+    List<Question> importWordAfterHandler(List<Question> resultList,InputStream inputStream) throws Exception;
 }
