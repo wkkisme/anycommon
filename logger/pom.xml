@@ -73,7 +73,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.19</version>
+            <version>8.0.28</version>
 <!--            <scope>provided</scope>-->
         </dependency>
 
@@ -245,7 +245,7 @@
                     <dependency>
                         <groupId>mysql</groupId>
                         <artifactId>mysql-connector-java</artifactId>
-                        <version>8.0.19</version>
+                        <version>8.0.28</version>
                     </dependency>
 
                     <!-- 此 JSON 依赖可选, 若使用则启用 FastJSON 的 toString 方法,否则使用 Mybatis 默认的 toString -->
